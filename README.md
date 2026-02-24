@@ -1,141 +1,192 @@
-# 🚀 Welcome to Z.ai Code Scaffold
+# 跨模态漫画-视觉人脸识别系统
 
-A modern, production-ready web application scaffold powered by cutting-edge technologies, designed to accelerate your development with [Z.ai](https://chat.z.ai)'s AI-powered coding assistance.
+一个用于漫画人脸图像与真实人脸图像匹配的跨模态识别系统，基于深度学习技术实现。
 
-## ✨ Technology Stack
+## 项目简介
 
-This scaffold provides a robust foundation built with:
+本项目是硕士研究生毕业论文项目，研究方向为跨模态漫画-视觉人脸识别。系统实现了漫画人脸图像与真实人脸图像的正确匹配，支持双向检索（漫画→真实人脸、真实人脸→漫画）。
 
-### 🎯 Core Framework
-- **⚡ Next.js 16** - The React framework for production with App Router
-- **📘 TypeScript 5** - Type-safe JavaScript for better developer experience
-- **🎨 Tailwind CSS 4** - Utility-first CSS framework for rapid UI development
+## 主要功能
 
-### 🧩 UI Components & Styling
-- **🧩 shadcn/ui** - High-quality, accessible components built on Radix UI
-- **🎯 Lucide React** - Beautiful & consistent icon library
-- **🌈 Framer Motion** - Production-ready motion library for React
-- **🎨 Next Themes** - Perfect dark mode in 2 lines of code
+- **跨模态匹配**：支持漫画→真实人脸和真实人脸→漫画的双向匹配
+- **批量处理**：支持批量图像上传和匹配
+- **实验评估**：提供完整的评估指标（Rank-1/5/10、mAP、Precision、Recall、F1-Score）
+- **数据管理**：便捷的数据集管理界面
+- **可视化展示**：直观的匹配结果展示和系统状态监控
 
-### 📋 Forms & Validation
-- **🎣 React Hook Form** - Performant forms with easy validation
-- **✅ Zod** - TypeScript-first schema validation
+## 技术栈
 
-### 🔄 State Management & Data Fetching
-- **🐻 Zustand** - Simple, scalable state management
-- **🔄 TanStack Query** - Powerful data synchronization for React
-- **🌐 Fetch** - Promise-based HTTP request
+- **前端**：Next.js 16 + React 19 + Tailwind CSS + shadcn/ui
+- **后端**：Next.js API Routes
+- **深度学习**：PyTorch（需用户提供模型文件）
 
-### 🗄️ Database & Backend
-- **🗄️ Prisma** - Next-generation TypeScript ORM
-- **🔐 NextAuth.js** - Complete open-source authentication solution
+## 项目结构
 
-### 🎨 Advanced UI Features
-- **📊 TanStack Table** - Headless UI for building tables and datagrids
-- **🖱️ DND Kit** - Modern drag and drop toolkit for React
-- **📊 Recharts** - Redefined chart library built with React and D3
-- **🖼️ Sharp** - High performance image processing
+```
+├── config/                    # 配置文件目录
+│   └── model.config.ts        # 模型参数配置
+├── models/                    # 模型文件目录（需用户放置）
+│   ├── face_detector.pt       # 人脸检测模型
+│   ├── feature_extractor.pt   # 特征提取模型
+│   └── cross_modal_matcher.pt # 跨模态匹配模型
+├── data/                      # 数据目录
+│   ├── faces/                 # 真实人脸图像
+│   └── caricatures/           # 漫画人脸图像
+├── src/
+│   ├── app/                   # Next.js App Router
+│   │   ├── api/               # API路由
+│   │   └── page.tsx           # 主页面
+│   ├── components/            # React组件
+│   │   └── face-match/        # 人脸匹配相关组件
+│   ├── lib/                   # 工具库
+│   │   ├── models/            # 模型接口
+│   │   └── face-match.ts      # 核心匹配逻辑
+│   └── types/                 # TypeScript类型定义
+└── reports/                   # 评估报告输出目录
+```
 
-### 🌍 Internationalization & Utilities
-- **🌍 Next Intl** - Internationalization library for Next.js
-- **📅 Date-fns** - Modern JavaScript date utility library
-- **🪝 ReactUse** - Collection of essential React hooks for modern development
+## 快速开始
 
-## 🎯 Why This Scaffold?
-
-- **🏎️ Fast Development** - Pre-configured tooling and best practices
-- **🎨 Beautiful UI** - Complete shadcn/ui component library with advanced interactions
-- **🔒 Type Safety** - Full TypeScript configuration with Zod validation
-- **📱 Responsive** - Mobile-first design principles with smooth animations
-- **🗄️ Database Ready** - Prisma ORM configured for rapid backend development
-- **🔐 Auth Included** - NextAuth.js for secure authentication flows
-- **📊 Data Visualization** - Charts, tables, and drag-and-drop functionality
-- **🌍 i18n Ready** - Multi-language support with Next Intl
-- **🚀 Production Ready** - Optimized build and deployment settings
-- **🤖 AI-Friendly** - Structured codebase perfect for AI assistance
-
-## 🚀 Quick Start
+### 1. 安装依赖
 
 ```bash
-# Install dependencies
 bun install
+```
 
-# Start development server
+### 2. 配置模型
+
+1. 将您的PyTorch模型文件放置到 `models/` 目录：
+   - `face_detector.pt` - 人脸检测模型
+   - `feature_extractor.pt` - 特征提取模型
+   - `cross_modal_matcher.pt` - 跨模态匹配模型（可选）
+
+2. 修改 `config/model.config.ts` 中的模型参数：
+   - 模型路径
+   - 输入尺寸
+   - 特征维度
+   - GPU设置等
+
+### 3. 准备数据
+
+将测试图像放置到 `data/` 目录：
+- `data/faces/` - 真实人脸图像
+- `data/caricatures/` - 漫画人脸图像
+
+### 4. 启动服务
+
+```bash
 bun run dev
-
-# Build for production
-bun run build
-
-# Start production server
-bun start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see your application running.
+访问 http://localhost:3000 使用系统。
 
-## 🤖 Powered by Z.ai
+## 模型接口说明
 
-This scaffold is optimized for use with [Z.ai](https://chat.z.ai) - your AI assistant for:
+系统预留了以下模型接口，您需要根据实际模型实现具体逻辑：
 
-- **💻 Code Generation** - Generate components, pages, and features instantly
-- **🎨 UI Development** - Create beautiful interfaces with AI assistance  
-- **🔧 Bug Fixing** - Identify and resolve issues with intelligent suggestions
-- **📝 Documentation** - Auto-generate comprehensive documentation
-- **🚀 Optimization** - Performance improvements and best practices
+### 人脸检测器 (`src/lib/models/face-detector.ts`)
 
-Ready to build something amazing? Start chatting with Z.ai at [chat.z.ai](https://chat.z.ai) and experience the future of AI-powered development!
-
-## 📁 Project Structure
-
-```
-src/
-├── app/                 # Next.js App Router pages
-├── components/          # Reusable React components
-│   └── ui/             # shadcn/ui components
-├── hooks/              # Custom React hooks
-└── lib/                # Utility functions and configurations
+```typescript
+interface IFaceDetector {
+  loadModel(modelPath: string): Promise<boolean>;
+  detect(image: Buffer | string): Promise<FaceDetectionResult>;
+  detectBatch(images: (Buffer | string)[]): Promise<FaceDetectionResult[]>;
+  dispose(): Promise<void>;
+}
 ```
 
-## 🎨 Available Features & Components
+### 特征提取器 (`src/lib/models/feature-extractor.ts`)
 
-This scaffold includes a comprehensive set of modern web development tools:
+```typescript
+interface IFeatureExtractor {
+  loadModel(modelPath: string): Promise<boolean>;
+  extract(image: Buffer | string, modality: ImageModality): Promise<FeatureExtractionResult>;
+  extractBatch(images: (Buffer | string)[], modality: ImageModality): Promise<FeatureExtractionResult[]>;
+  getFeatureDimension(): number;
+  dispose(): Promise<void>;
+}
+```
 
-### 🧩 UI Components (shadcn/ui)
-- **Layout**: Card, Separator, Aspect Ratio, Resizable Panels
-- **Forms**: Input, Textarea, Select, Checkbox, Radio Group, Switch
-- **Feedback**: Alert, Toast (Sonner), Progress, Skeleton
-- **Navigation**: Breadcrumb, Menubar, Navigation Menu, Pagination
-- **Overlay**: Dialog, Sheet, Popover, Tooltip, Hover Card
-- **Data Display**: Badge, Avatar, Calendar
+### 跨模态匹配器 (`src/lib/models/cross-modal-matcher.ts`)
 
-### 📊 Advanced Data Features
-- **Tables**: Powerful data tables with sorting, filtering, pagination (TanStack Table)
-- **Charts**: Beautiful visualizations with Recharts
-- **Forms**: Type-safe forms with React Hook Form + Zod validation
+```typescript
+interface ICrossModalMatcher {
+  loadModel(modelPath: string): Promise<boolean>;
+  computeSimilarity(feature1: number[], feature2: number[]): Promise<number>;
+  search(queryFeature: number[], targetFeatures: FeatureVector[], topK?: number): Promise<MatchedPair[]>;
+  match(queryFeature: FeatureVector, targetFeatures: FeatureVector[]): Promise<MatchResult>;
+  dispose(): Promise<void>;
+}
+```
 
-### 🎨 Interactive Features
-- **Animations**: Smooth micro-interactions with Framer Motion
-- **Drag & Drop**: Modern drag-and-drop functionality with DND Kit
-- **Theme Switching**: Built-in dark/light mode support
+## API 接口
 
-### 🔐 Backend Integration
-- **Authentication**: Ready-to-use auth flows with NextAuth.js
-- **Database**: Type-safe database operations with Prisma
-- **API Client**: HTTP requests with Fetch + TanStack Query
-- **State Management**: Simple and scalable with Zustand
+| 接口 | 方法 | 描述 |
+|------|------|------|
+| `/api/upload` | POST | 上传单张图像 |
+| `/api/upload` | PUT | 批量上传图像 |
+| `/api/match` | POST | 执行跨模态匹配 |
+| `/api/match` | PUT | 计算两张图像相似度 |
+| `/api/evaluate` | POST | 执行评估 |
+| `/api/evaluate` | GET | 获取评估历史 |
+| `/api/dataset` | GET | 获取数据集信息 |
+| `/api/dataset` | DELETE | 删除数据集文件 |
+| `/api/config` | GET | 获取配置信息 |
+| `/api/status` | GET | 获取系统状态 |
 
-### 🌍 Production Features
-- **Internationalization**: Multi-language support with Next Intl
-- **Image Optimization**: Automatic image processing with Sharp
-- **Type Safety**: End-to-end TypeScript with Zod validation
-- **Essential Hooks**: 100+ useful React hooks with ReactUse for common patterns
+## 配置说明
 
-## 🤝 Get Started with Z.ai
+所有模型参数在 `config/model.config.ts` 中集中管理：
 
-1. **Clone this scaffold** to jumpstart your project
-2. **Visit [chat.z.ai](https://chat.z.ai)** to access your AI coding assistant
-3. **Start building** with intelligent code generation and assistance
-4. **Deploy with confidence** using the production-ready setup
+```typescript
+export const ModelConfig = {
+  faceDetector: {
+    modelPath: './models/face_detector.pt',
+    inputSize: { width: 640, height: 640 },
+    confidenceThreshold: 0.5,
+    useGPU: true,
+    // ...
+  },
+  featureExtractor: {
+    modelPath: './models/feature_extractor.pt',
+    inputSize: { width: 224, height: 224 },
+    featureDim: 512,
+    // ...
+  },
+  crossModalMatcher: {
+    similarityMethod: 'cosine',
+    matchThreshold: 0.5,
+    topK: 10,
+    // ...
+  },
+  // ...
+};
+```
 
----
+## 评估指标
 
-Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+系统支持以下评估指标：
+
+- **Rank-K 准确率**：Rank-1、Rank-5、Rank-10
+- **平均精度**：mAP (Mean Average Precision)
+- **分类指标**：Precision、Recall、F1-Score
+- **混淆矩阵**：TP、FP、TN、FN
+
+## 开发说明
+
+```bash
+# 代码检查
+bun run lint
+
+# 数据库操作
+bun run db:push
+bun run db:generate
+```
+
+## 许可证
+
+本项目仅供学术研究使用。
+
+## 作者
+
+硕士研究生 - 跨模态漫画-视觉人脸识别研究方向

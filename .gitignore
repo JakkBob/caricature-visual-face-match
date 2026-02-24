@@ -49,3 +49,29 @@ prompt
 server.log
 # Skills directory
 /skills/
+
+# Project specific
+# Model files (large binary files)
+/models/*.pt
+/models/*.pth
+/models/*.onnx
+/models/*.bin
+!/models/README.md
+
+# Data files
+/data/faces/*
+/data/caricatures/*
+!/data/README.md
+!/data/faces/.gitkeep
+!/data/caricatures/.gitkeep
+
+# Reports
+/reports/
+
+# Temp files
+/temp/
+*.tmp
+*.temp
+
+# Upload files (if any)
+uploads/
