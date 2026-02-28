@@ -9,19 +9,104 @@ import { existsSync } from 'fs';
 import path from 'path';
 import { 
   EvaluationMetrics, 
-  EvaluationResult, 
-  MatchResult,
+  EvaluationResult,
   ImageModality,
-  FeatureVector,
 } from '@/types';
-import { faceMatchPipeline } from '@/lib/face-match';
-import { featureExtractor } from '@/lib/models';
-import ModelConfig from '@/config/model.config';
+import ModelConfig from '../../config/model.config';
+
+// Python service URL
+const PYTHON_SERVICE_URL = ModelConfig.pythonService.url;
 
 interface GroundTruthPair {
   faceId: string;
   caricatureId: string;
   isMatch: boolean;
+}
+
+/**
+ * 调用Python服务提取特征
+ */
+async function extractFeaturesFromPythonService(
+  base64Image: string,
+  modality: ImageModality
+): Promise<{ success: boolean; feature?: number[]; message?: string }> {
+  try {
+    const response = await fetch(`${PYTHON_SERVICE_URL}/extract`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        image: base64Image,
+        modality: modality,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      return { success: false, message: error };
+    }
+
+    const result = await response.json();
+    return {
+      success: result.success,
+      feature: result.feature,
+      message: result.message,
+    };
+  } catch (error) {
+    return { success: false, message: String(error) };
+  }
+}
+
+/**
+ * 调用Python服务计算相似度
+ */
+async function computeSimilarityFromPythonService(
+  image1Base64: string,
+  image2Base64: string
+): Promise<{ success: boolean; similarity?: number; message?: string }> {
+  try {
+    const response = await fetch(`${PYTHON_SERVICE_URL}/similarity`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        image1: image1Base64,
+        image2: image2Base64,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      return { success: false, message: error };
+    }
+
+    const result = await response.json();
+    return {
+      success: result.success,
+      similarity: result.similarity,
+      message: result.message,
+    };
+  } catch (error) {
+    return { success: false, message: String(error) };
+  }
+}
+
+/**
+ * 计算余弦相似度
+ */
+function cosineSimilarity(a: number[], b: number[]): number {
+  if (a.length !== b.length) return 0;
+  
+  let dotProduct = 0;
+  let normA = 0;
+  let normB = 0;
+  
+  for (let i = 0; i < a.length; i++) {
+    dotProduct += a[i] * b[i];
+    normA += a[i] * a[i];
+    normB += b[i] * b[i];
+  }
+  
+  if (normA === 0 || normB === 0) return 0;
+  return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 
 /**
@@ -119,16 +204,23 @@ export async function POST(request: NextRequest) {
       : path.join(process.cwd(), 'data', 'caricatures');
 
     // 检查目录是否存在
-    if (!existsSync(facesDir) || !existsSync(caricaturesDir)) {
+    if (!existsSync(facesDir)) {
       return NextResponse.json(
-        { success: false, message: 'Dataset directories not found' },
+        { success: false, message: `Faces directory not found: ${facesDir}. Please add face images to data/faces/ directory.` },
+        { status: 400 }
+      );
+    }
+    
+    if (!existsSync(caricaturesDir)) {
+      return NextResponse.json(
+        { success: false, message: `Caricatures directory not found: ${caricaturesDir}. Please add caricature images to data/caricatures/ directory.` },
         { status: 400 }
       );
     }
 
-    // 加载人脸特征
+    // 加载人脸图像
     const faceFiles = await readdir(facesDir);
-    const faceFeatures: { id: string; feature: FeatureVector; path: string }[] = [];
+    const faceImages: { id: string; base64: string; path: string }[] = [];
     
     for (const file of faceFiles) {
       const ext = file.split('.').pop()?.toLowerCase();
@@ -138,19 +230,16 @@ export async function POST(request: NextRequest) {
       const buffer = await readFile(filePath);
       const base64 = buffer.toString('base64');
       
-      const result = await featureExtractor.extract(base64, 'face');
-      if (result.success && result.features) {
-        faceFeatures.push({
-          id: file.replace(/\.[^/.]+$/, ''),
-          feature: result.features,
-          path: filePath,
-        });
-      }
+      faceImages.push({
+        id: file.replace(/\.[^/.]+$/, ''),
+        base64,
+        path: filePath,
+      });
     }
 
-    // 加载漫画特征
+    // 加载漫画图像
     const caricatureFiles = await readdir(caricaturesDir);
-    const caricatureFeatures: { id: string; feature: FeatureVector; path: string }[] = [];
+    const caricatureImages: { id: string; base64: string; path: string }[] = [];
     
     for (const file of caricatureFiles) {
       const ext = file.split('.').pop()?.toLowerCase();
@@ -160,22 +249,71 @@ export async function POST(request: NextRequest) {
       const buffer = await readFile(filePath);
       const base64 = buffer.toString('base64');
       
-      const result = await featureExtractor.extract(base64, 'caricature');
-      if (result.success && result.features) {
-        caricatureFeatures.push({
-          id: file.replace(/\.[^/.]+$/, ''),
-          feature: result.features,
-          path: filePath,
+      caricatureImages.push({
+        id: file.replace(/\.[^/.]+$/, ''),
+        base64,
+        path: filePath,
+      });
+    }
+
+    if (faceImages.length === 0) {
+      return NextResponse.json(
+        { success: false, message: `No valid face images found in ${facesDir}. Supported formats: ${ModelConfig.dataProcessing.supportedFormats.join(', ')}` },
+        { status: 400 }
+      );
+    }
+    
+    if (caricatureImages.length === 0) {
+      return NextResponse.json(
+        { success: false, message: `No valid caricature images found in ${caricaturesDir}. Supported formats: ${ModelConfig.dataProcessing.supportedFormats.join(', ')}` },
+        { status: 400 }
+      );
+    }
+
+    console.log(`[Evaluation] Found ${faceImages.length} face images and ${caricatureImages.length} caricature images`);
+
+    // 提取人脸特征
+    console.log('[Evaluation] Extracting face features...');
+    const faceFeatures: { id: string; feature: number[]; base64: string }[] = [];
+    
+    for (const face of faceImages) {
+      const result = await extractFeaturesFromPythonService(face.base64, 'face');
+      if (result.success && result.feature) {
+        faceFeatures.push({
+          id: face.id,
+          feature: result.feature,
+          base64: face.base64,
         });
+      } else {
+        console.warn(`[Evaluation] Failed to extract features for face ${face.id}: ${result.message}`);
+      }
+    }
+
+    // 提取漫画特征
+    console.log('[Evaluation] Extracting caricature features...');
+    const caricatureFeatures: { id: string; feature: number[]; base64: string }[] = [];
+    
+    for (const caricature of caricatureImages) {
+      const result = await extractFeaturesFromPythonService(caricature.base64, 'caricature');
+      if (result.success && result.feature) {
+        caricatureFeatures.push({
+          id: caricature.id,
+          feature: result.feature,
+          base64: caricature.base64,
+        });
+      } else {
+        console.warn(`[Evaluation] Failed to extract features for caricature ${caricature.id}: ${result.message}`);
       }
     }
 
     if (faceFeatures.length === 0 || caricatureFeatures.length === 0) {
       return NextResponse.json(
-        { success: false, message: 'No valid images found in dataset' },
-        { status: 400 }
+        { success: false, message: 'Failed to extract features from images. Make sure Python service is running and models are loaded.' },
+        { status: 500 }
       );
     }
+
+    console.log(`[Evaluation] Extracted features for ${faceFeatures.length} faces and ${caricatureFeatures.length} caricatures`);
 
     // 加载Ground Truth（如果有）
     let groundTruth: GroundTruthPair[] = [];
@@ -198,6 +336,15 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    if (groundTruth.length === 0) {
+      return NextResponse.json(
+        { success: false, message: 'No ground truth pairs found. Please ensure face and caricature images have matching filenames.' },
+        { status: 400 }
+      );
+    }
+
+    console.log(`[Evaluation] Found ${groundTruth.length} ground truth pairs`);
+
     // 执行匹配评估
     const evaluationResults: { 
       queryId: string; 
@@ -206,28 +353,34 @@ export async function POST(request: NextRequest) {
     }[] = [];
 
     // 漫画 -> 人脸 匹配
+    console.log('[Evaluation] Running matching evaluation...');
     for (const caricature of caricatureFeatures) {
       const gt = groundTruth.find((g) => g.caricatureId === caricature.id);
       if (!gt) continue;
 
-      const matchResult = await faceMatchPipeline.match(
-        Buffer.from(JSON.stringify(caricature.feature.vector)).toString('base64'),
-        'caricature',
-        faceFeatures.map((f) => f.feature),
-        10
-      );
-
-      if (matchResult.success) {
-        evaluationResults.push({
-          queryId: caricature.id,
-          matches: matchResult.matches.map((m, i) => ({
-            targetId: faceFeatures.find((f) => f.feature.imageId === m.imageId)?.id || m.imageId,
-            similarity: m.similarity,
-            rank: i + 1,
-          })),
-          groundTruth: gt.faceId,
+      // 计算与所有人脸的相似度
+      const similarities: { targetId: string; similarity: number }[] = [];
+      
+      for (const face of faceFeatures) {
+        const similarity = cosineSimilarity(caricature.feature, face.feature);
+        similarities.push({
+          targetId: face.id,
+          similarity,
         });
       }
+
+      // 按相似度排序
+      similarities.sort((a, b) => b.similarity - a.similarity);
+
+      evaluationResults.push({
+        queryId: caricature.id,
+        matches: similarities.slice(0, 10).map((m, i) => ({
+          targetId: m.targetId,
+          similarity: m.similarity,
+          rank: i + 1,
+        })),
+        groundTruth: gt.faceId,
+      });
     }
 
     // 计算评估指标
@@ -261,6 +414,9 @@ export async function POST(request: NextRequest) {
         config: {
           threshold: ModelConfig.crossModalMatcher.matchThreshold,
           topK: ModelConfig.crossModalMatcher.topK,
+          faceCount: faceFeatures.length,
+          caricatureCount: caricatureFeatures.length,
+          groundTruthCount: groundTruth.length,
         },
       };
 
