@@ -118,6 +118,7 @@ class MatchResponse(BaseModel):
     message: Optional[str] = None
     matches: Optional[List[Dict[str, Any]]] = None
     query_feature: Optional[List[float]] = None
+    process_time: Optional[int] = None  # Processing time in milliseconds
 
 
 class SimilarityRequest(BaseModel):
@@ -475,6 +476,9 @@ async def extract_features(request: ExtractRequest):
 async def match_images(request: MatchRequest):
     """Match query image against gallery."""
     try:
+        import time
+        start_time = time.time()
+        
         query_image = service.decode_image(request.query_image)
         gallery_images = [service.decode_image(img) for img in request.gallery_images]
         
@@ -484,6 +488,11 @@ async def match_images(request: MatchRequest):
             request.gallery_ids,
             request.top_k or 10
         )
+        
+        # Add processing time
+        process_time = int((time.time() - start_time) * 1000)  # ms
+        result['process_time'] = process_time
+        
         return MatchResponse(**result)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

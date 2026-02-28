@@ -102,7 +102,11 @@ export default function Home() {
         );
         console.log('[Match] Transformed matches:', JSON.stringify(transformedMatches, null, 2));
         setMatches(transformedMatches);
-        setProcessTime(data.data.processTime || data.processTime || 0);
+        
+        // Get process time from response (try multiple locations)
+        const processTimeMs = data.data.process_time || data.data.processTime || data.process_time || data.processTime || 0;
+        console.log('[Match] Process time:', processTimeMs);
+        setProcessTime(processTimeMs);
       } else {
         console.error('Match failed:', data.message);
       }
