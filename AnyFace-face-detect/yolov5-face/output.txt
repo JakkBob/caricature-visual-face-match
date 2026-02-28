@@ -1,0 +1,74 @@
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Abraham Lincoln\C00018.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Alan Rickman\C00016.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Albert Einstein\C00004.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Alfred Hitchcock\C00002.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Alfred Hitchcock\C00027.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Alfred Hitchcock\C00038.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Alfred Hitchcock\C00059.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Alfred Hitchcock\C00088.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Arnold Schwarzenegger\C00010.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Benedict Cumberbatch\C00014.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Bill Murray\C00018.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Bruce Lee\C00034.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Chuck Norris\C00024.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Danny Glover\C00009.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Donald Trump\C00030.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Fidel Castro\C00003.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Frank Zappa\C00015.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Frank Zappa\C00017.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Frank Zappa\C00024.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Frank Zappa\C00037.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Frank Zappa\C00045.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\George W. Bush\C00008.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\George W. Bush\C00023.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Harrison Ford\C00006.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Hugh Laurie\C00011.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Hugh Laurie\C00032.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Hulk Hogan\C00001.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Hulk Hogan\C00009.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Jack Black\C00007.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\James Coburn\C00008.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\James Cromwell\C00018.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\James Cromwell\C00021.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Jamie lee curtis\C00010.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Jay-z\C00015.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Jeff Bridges\C00023.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\John Travolta\C00011.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\John Travolta\C00039.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\John Wayne\C00035.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Keith Richards\C00067.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Keith Richards\C00071.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Lee Marvin\C00016.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Leonard Nimoy\C00028.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Louie Armstrong\C00046.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Mahatma Gandhi\C00017.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Michael Schumacher\C00019.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Ming Yao\C00010.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Oliver Hardy\C00004.jpg ######/C5,8,9/P10
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\P!nk\C00004.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Patrick Stewart\C00017.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Peter Falk\C00007.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Rihanna\C00005.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Ringo Starr\C00009.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Ringo Starr\C00011.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Robert de Niro\C00007.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Sean Connery\C00019.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Sean Connery\C00040.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Stan Laurel\C00014.jpg######/C7,13,15,16,17/P5,6,16
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Steve Jobs\C00020.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Steven Tyler\C00011.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Steven Tyler\C00014.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Steven Tyler\C00030.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Tim Burton\C00028.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Tim Burton\C00072.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Tina Turner\C00009.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Tina Turner\C00021.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Tina Turner\C00022.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Tina Turner\C00024.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Tom Cruise\C00002.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Walter Mathau\C00002.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Walter Mathau\C00003.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Walter Mathau\C00005.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Walter Mathau\C00007.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Willie Nelson\C00002.jpg
+image 0 faces, path: D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\WebCaricature\Woody Allen\C00008.jpg
