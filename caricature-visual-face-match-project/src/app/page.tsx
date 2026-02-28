@@ -78,19 +78,31 @@ export default function Home() {
       });
 
       const data = await response.json();
+      console.log('[Match] Response data:', JSON.stringify(data, null, 2));
+      
       if (data.success && data.data) {
         // Transform backend response to MatchedPair format
-        const transformedMatches: MatchedPair[] = (data.data.matches || []).map(
-          (match: { index?: number; similarity: number; rank: number; isMatch?: boolean; is_match?: boolean; id?: string }) => ({
-            imageId: match.id || `match-${match.index || match.rank}`,
-            imagePath: '', // Backend doesn't return path, will show placeholder
-            similarity: match.similarity,
-            rank: match.rank,
-            isMatch: match.isMatch ?? match.is_match ?? false,
-          })
+        // Handle nested data structure: data.data.matches or data.matches
+        const matchesData = data.data.matches || data.matches || [];
+        console.log('[Match] Matches data:', JSON.stringify(matchesData, null, 2));
+        
+        const transformedMatches: MatchedPair[] = matchesData.map(
+          (match: { index?: number; similarity: number; rank: number; isMatch?: boolean; is_match?: boolean; id?: string }) => {
+            // Ensure similarity is a valid number
+            const similarity = typeof match.similarity === 'number' ? match.similarity : 0;
+            console.log('[Match] Processing match:', { id: match.id, similarity, rank: match.rank });
+            return {
+              imageId: match.id || `match-${match.index || match.rank}`,
+              imagePath: '', // Backend doesn't return path, will show placeholder
+              similarity: similarity,
+              rank: match.rank || 1,
+              isMatch: match.isMatch ?? match.is_match ?? false,
+            };
+          }
         );
+        console.log('[Match] Transformed matches:', JSON.stringify(transformedMatches, null, 2));
         setMatches(transformedMatches);
-        setProcessTime(data.data.processTime || 0);
+        setProcessTime(data.data.processTime || data.processTime || 0);
       } else {
         console.error('Match failed:', data.message);
       }

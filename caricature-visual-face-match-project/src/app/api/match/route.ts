@@ -205,6 +205,7 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await response.json();
+    console.log('[Match API] Python service result:', JSON.stringify(result, null, 2));
 
     // Update is_match based on threshold
     if (result.matches) {
@@ -213,6 +214,12 @@ export async function POST(request: NextRequest) {
         isMatch: m.similarity >= threshold,
       }));
     }
+
+    console.log('[Match API] Returning to client:', JSON.stringify({
+      success: result.success,
+      data: result,
+      message: result.message,
+    }, null, 2));
 
     return NextResponse.json({
       success: result.success,
