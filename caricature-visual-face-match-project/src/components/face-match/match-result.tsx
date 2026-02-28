@@ -79,8 +79,8 @@ export function MatchResult({
           查询模式: {queryModality === 'face' ? '真实人脸 → 漫画' : '漫画 → 真实人脸'}
         </p>
       </CardHeader>
-      <CardContent className="flex-1 overflow-hidden p-0">
-        <div className="h-full overflow-y-auto px-6 pb-6" style={{ maxHeight: '400px' }}>
+      <CardContent className="flex-1 overflow-hidden p-0 min-h-0">
+        <div className="h-full overflow-y-auto px-6 pb-6" style={{ maxHeight: 'calc(100vh - 400px)' }}>
           <div className="space-y-3 pt-2">
             {matches.map((match, index) => (
               <div
