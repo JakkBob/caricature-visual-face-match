@@ -202,7 +202,7 @@ export default function Home() {
 
           {/* 匹配识别标签页 */}
           <TabsContent value="match" className="space-y-6">
-            <div className="grid lg:grid-cols-3 gap-6">
+            <div className="grid lg:grid-cols-2 gap-6">
               {/* 左侧：匹配模式 */}
               <div className="space-y-4">
                 {/* 匹配模式选择 */}
@@ -267,27 +267,24 @@ export default function Home() {
                 </Button>
               </div>
 
-              {/* 中间：匹配结果 */}
+              {/* 右侧：系统状态和匹配结果 */}
               <div className="space-y-4">
+                <SystemStatus />
+                
                 {matches.length > 0 ? (
                   <MatchResult
                     matches={matches}
                     queryModality={matchMode === 'face-to-caricature' ? 'face' : 'caricature'}
                     processTime={processTime}
-                    className="h-full"
+                    autoOpen={true}
                   />
                 ) : (
-                  <Card className="w-full h-full min-h-[400px]">
-                    <CardContent className="flex flex-col items-center justify-center h-full">
+                  <Card className="w-full">
+                    <CardContent className="flex flex-col items-center justify-center py-12">
                       <p className="text-muted-foreground">上传图像后点击"开始匹配"查看结果</p>
                     </CardContent>
                   </Card>
                 )}
-              </div>
-
-              {/* 右侧：系统状态 */}
-              <div className="space-y-4">
-                <SystemStatus />
               </div>
             </div>
           </TabsContent>
