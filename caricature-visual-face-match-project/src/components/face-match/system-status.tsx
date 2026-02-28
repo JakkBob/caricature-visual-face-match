@@ -29,6 +29,12 @@ interface SystemStatus {
     usagePercent: number;
   };
   uptime: number;
+  pythonService?: {
+    status: string;
+    device?: string;
+    gpuAvailable?: boolean;
+    error?: string;
+  };
 }
 
 interface SystemStatusProps {
@@ -163,6 +169,40 @@ export function SystemStatus({ className }: SystemStatusProps) {
             </div>
           </div>
         </div>
+
+        {/* Python 服务状态 */}
+        {status.pythonService && (
+          <div className="flex items-center justify-between p-2 rounded-lg border bg-muted/30">
+            <div className="flex items-center gap-2">
+              <Server className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm">Python 服务</span>
+            </div>
+            <div className="flex items-center gap-2">
+              {status.pythonService.error ? (
+                <Badge variant="destructive" className="text-xs">
+                  错误
+                </Badge>
+              ) : (
+                <Badge variant="outline" className="text-xs">
+                  {status.pythonService.status}
+                </Badge>
+              )}
+              {status.pythonService.device && (
+                <Badge variant="outline" className="text-xs">
+                  {status.pythonService.device}
+                </Badge>
+              )}
+              {status.pythonService.gpuAvailable !== undefined && (
+                <Badge 
+                  variant={status.pythonService.gpuAvailable ? "default" : "secondary"} 
+                  className="text-xs"
+                >
+                  {status.pythonService.gpuAvailable ? 'GPU' : 'CPU'}
+                </Badge>
+              )}
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
