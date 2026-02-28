@@ -106,7 +106,7 @@ class ExtractResponse(BaseModel):
 class MatchRequest(BaseModel):
     """Matching request."""
     query_image: str  # Base64 encoded image
-    query_modality: str  # 'face' or 'caricature'
+    query_modality: Optional[str] = 'face'  # 'face' or 'caricature'
     gallery_images: List[str]  # List of base64 encoded images
     gallery_ids: Optional[List[str]] = None
     top_k: Optional[int] = 10

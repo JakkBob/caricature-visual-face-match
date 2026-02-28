@@ -189,6 +189,7 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         query_image: queryImageData,
+        query_modality: queryModality,
         gallery_images: galleryImages,
         gallery_ids: galleryIds,
         top_k: topK,
