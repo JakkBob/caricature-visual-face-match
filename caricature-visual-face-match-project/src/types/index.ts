@@ -95,6 +95,7 @@ export interface MatchResult {
 export interface MatchedPair {
   imageId: string;
   imagePath: string;
+  imageData?: string; // Base64 encoded image data
   similarity: number;
   rank: number;
   isMatch: boolean; // 是否超过阈值

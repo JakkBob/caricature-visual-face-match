@@ -89,13 +89,14 @@ export default function Home() {
         console.log('[Match] Matches data:', JSON.stringify(matchesData, null, 2));
         
         const transformedMatches: MatchedPair[] = matchesData.map(
-          (match: { index?: number; similarity: number; rank: number; isMatch?: boolean; is_match?: boolean; id?: string }) => {
+          (match: { index?: number; similarity: number; rank: number; isMatch?: boolean; is_match?: boolean; id?: string; image_data?: string }) => {
             // Ensure similarity is a valid number
             const similarity = typeof match.similarity === 'number' ? match.similarity : 0;
             console.log('[Match] Processing match:', { id: match.id, similarity, rank: match.rank });
             return {
               imageId: match.id || `match-${match.index || match.rank}`,
               imagePath: '', // Backend doesn't return path, will show placeholder
+              imageData: match.image_data, // Base64 image data from backend
               similarity: similarity,
               rank: match.rank || 1,
               isMatch: match.isMatch ?? match.is_match ?? false,
@@ -201,9 +202,9 @@ export default function Home() {
 
           {/* 匹配识别标签页 */}
           <TabsContent value="match" className="space-y-6">
-            <div className="grid lg:grid-cols-3 gap-6">
+            <div className="grid lg:grid-cols-2 gap-6">
               {/* 左侧：上传和设置 */}
-              <div className="lg:col-span-2 space-y-4">
+              <div className="space-y-4 lg:sticky lg:top-6 lg:self-start">
                 {/* 匹配模式选择 */}
                 <Card>
                   <CardHeader className="pb-3">
@@ -270,12 +271,18 @@ export default function Home() {
               <div className="space-y-4">
                 <SystemStatus />
                 
-                {matches.length > 0 && (
+                {matches.length > 0 ? (
                   <MatchResult
                     matches={matches}
                     queryModality={matchMode === 'face-to-caricature' ? 'face' : 'caricature'}
                     processTime={processTime}
                   />
+                ) : (
+                  <Card className="w-full">
+                    <CardContent className="flex flex-col items-center justify-center py-12">
+                      <p className="text-muted-foreground">上传图像后点击"开始匹配"查看结果</p>
+                    </CardContent>
+                  </Card>
                 )}
               </div>
             </div>
