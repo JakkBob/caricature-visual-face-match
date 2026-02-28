@@ -5,15 +5,25 @@
  * 1. 请根据您的模型实际情况修改以下配置参数
  * 2. 模型文件请放置在 /models 目录下
  * 3. 配置修改后需重启服务生效
+ * 4. Python后端服务默认运行在 http://localhost:8000
  */
 
 export const ModelConfig = {
+  // ==================== Python后端服务配置 ====================
+  pythonService: {
+    // Python服务URL
+    url: process.env.PYTHON_SERVICE_URL || 'http://localhost:8000',
+    
+    // 请求超时时间（毫秒）
+    timeout: 30000,
+  },
+
   // ==================== 人脸检测模型配置 ====================
   faceDetector: {
-    // 模型文件路径（相对于项目根目录）
-    modelPath: './models/face_detector.pt',
+    // 模型文件路径（相对于python_service目录）
+    modelPath: './models/yolov5l6_best.pt',
     
-    // 模型类型：'pytorch' | 'onnx' | 'custom'
+    // 模型类型
     modelType: 'pytorch' as const,
     
     // 输入图像尺寸
@@ -22,11 +32,14 @@ export const ModelConfig = {
       height: 640,
     },
     
+    // 人脸对齐输出尺寸
+    alignSize: 224,
+    
     // 检测置信度阈值
-    confidenceThreshold: 0.5,
+    confidenceThreshold: 0.2,
     
     // 非极大值抑制阈值
-    nmsThreshold: 0.4,
+    nmsThreshold: 0.5,
     
     // 是否使用GPU
     useGPU: true,
@@ -42,27 +55,33 @@ export const ModelConfig = {
     
     // 对齐后输出尺寸
     outputSize: {
-      width: 112,
-      height: 112,
+      width: 224,
+      height: 224,
     },
     
-    // 关键点数量（通常为5或68）
+    // 关键点数量（通常为5）
     numLandmarks: 5,
     
-    // 对齐方法：'similarity' | 'affine'
-    alignMethod: 'similarity' as const,
+    // 对齐方法：'arcface' | 'similarity'
+    alignMethod: 'arcface' as const,
   },
 
   // ==================== 特征提取模型配置 ====================
   featureExtractor: {
-    // 模型文件路径（相对于项目根目录）
-    modelPath: './models/feature_extractor.pt',
+    // 跨模态匹配模型路径（相对于python_service目录）
+    modelPath: './models/cross_modal_matcher.pt',
     
-    // 模型类型：'pytorch' | 'onnx' | 'custom'
+    // 模型类型
     modelType: 'pytorch' as const,
     
-    // 输入图像尺寸
-    inputSize: {
+    // FaceNet输入尺寸
+    facenetInputSize: {
+      width: 160,
+      height: 160,
+    },
+    
+    // CLIP输入尺寸
+    clipInputSize: {
       width: 224,
       height: 224,
     },
@@ -85,10 +104,10 @@ export const ModelConfig = {
 
   // ==================== 跨模态匹配模型配置 ====================
   crossModalMatcher: {
-    // 模型文件路径（相对于项目根目录）
+    // 模型文件路径
     modelPath: './models/cross_modal_matcher.pt',
     
-    // 模型类型：'pytorch' | 'onnx' | 'custom'
+    // 模型类型
     modelType: 'pytorch' as const,
     
     // 是否使用GPU
@@ -105,6 +124,9 @@ export const ModelConfig = {
     
     // Top-K返回结果数量
     topK: 10,
+    
+    // 嵌入维度
+    embeddingDim: 512,
   },
 
   // ==================== 数据处理配置 ====================
@@ -115,10 +137,16 @@ export const ModelConfig = {
     // 最大图像尺寸（超过会自动缩放）
     maxImageSize: 2048,
     
-    // 图像归一化参数
-    normalization: {
+    // FaceNet图像归一化参数
+    facenetNormalization: {
       mean: [0.485, 0.456, 0.406],
       std: [0.229, 0.224, 0.225],
+    },
+    
+    // CLIP图像归一化参数
+    clipNormalization: {
+      mean: [0.48145466, 0.4578275, 0.40821073],
+      std: [0.26862954, 0.26130258, 0.27577711],
     },
     
     // 数据增强（训练时使用，推理时可选）
@@ -151,6 +179,7 @@ export const ModelConfig = {
 } as const;
 
 // 导出类型定义
+export type PythonServiceConfig = typeof ModelConfig.pythonService;
 export type FaceDetectorConfig = typeof ModelConfig.faceDetector;
 export type FaceAlignerConfig = typeof ModelConfig.faceAligner;
 export type FeatureExtractorConfig = typeof ModelConfig.featureExtractor;
