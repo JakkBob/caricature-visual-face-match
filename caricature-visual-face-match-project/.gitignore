@@ -75,3 +75,25 @@ server.log
 
 # Upload files (if any)
 uploads/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+.env/
+*.egg-info/
+dist/
+build/
+
+# Python service specific
+/python_service/venv/
+/python_service/.venv/
+/python_service/__pycache__/
+/python_service/models/*.pt
+/python_service/models/*.pth
+!/python_service/models/README.md

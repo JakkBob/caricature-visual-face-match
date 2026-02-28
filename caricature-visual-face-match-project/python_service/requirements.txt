@@ -8,9 +8,16 @@ Pillow>=8.0.0
 
 # Face Detection (YOLOv5-Face)
 scikit-image>=0.18.0
+PyYAML>=5.3.1
+scipy>=1.4.1
+tqdm>=4.41.0
+thop>=0.1.1
+requests>=2.25.0
+matplotlib>=3.3.0
+pandas>=1.1.0
 
 # Cross-modal matching
-clip @ git+https://github.com/openai/CLIP.git
+git+https://github.com/openai/CLIP.git
 facenet-pytorch>=2.5.0
 
 # API Server

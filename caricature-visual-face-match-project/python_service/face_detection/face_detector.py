@@ -39,13 +39,57 @@ if os.path.exists(YOLOV5_FACE_PATH):
 try:
     from models.experimental import attempt_load
     from utils.datasets import letterbox
-    from utils.general import non_max_suppression_face, scale_coords, scale_coords_landmarks
+    from utils.general import non_max_suppression_face, scale_coords
+    # scale_coords_landmarks is not in utils.general, we define it below
     YOLOV5_AVAILABLE = True
     print("[FaceDetector] Successfully imported yolov5-face modules")
 except ImportError as e:
     YOLOV5_AVAILABLE = False
     print(f"[Warning] Could not import from yolov5-face: {e}")
     print("[Warning] Make sure the yolov5-face directory exists in python_service/")
+
+
+# ============================================================================
+# scale_coords_landmarks function (not in original utils.general)
+# ============================================================================
+
+def scale_coords_landmarks(img1_shape, coords, img0_shape, ratio_pad=None):
+    """
+    Rescale landmark coordinates from img1_shape to img0_shape.
+    This function is not in the original utils.general, so we define it here.
+    
+    Args:
+        img1_shape: Shape of the resized image (h, w)
+        coords: Landmark coordinates tensor (N, 10) - 5 landmarks x 2 coords
+        img0_shape: Shape of the original image (h, w)
+        ratio_pad: Optional ratio and padding from letterbox
+    
+    Returns:
+        Rescaled coordinates
+    """
+    # Rescale coords (xyxy) from img1_shape to img0_shape
+    if ratio_pad is None:  # calculate from img0_shape
+        gain = min(img1_shape[0] / img0_shape[0], img1_shape[1] / img0_shape[1])  # gain  = old / new
+        pad = (img1_shape[1] - img0_shape[1] * gain) / 2, (img1_shape[0] - img0_shape[0] * gain) / 2  # wh padding
+    else:
+        gain = ratio_pad[0][0]
+        pad = ratio_pad[1]
+
+    coords[:, [0, 2, 4, 6, 8]] -= pad[0]  # x padding
+    coords[:, [1, 3, 5, 7, 9]] -= pad[1]  # y padding
+    coords[:, :10] /= gain
+    # clip coords
+    coords[:, 0].clamp_(0, img0_shape[1])  # x1
+    coords[:, 1].clamp_(0, img0_shape[0])  # y1
+    coords[:, 2].clamp_(0, img0_shape[1])  # x2
+    coords[:, 3].clamp_(0, img0_shape[0])  # y2
+    coords[:, 4].clamp_(0, img0_shape[1])  # x3
+    coords[:, 5].clamp_(0, img0_shape[0])  # y3
+    coords[:, 6].clamp_(0, img0_shape[1])  # x4
+    coords[:, 7].clamp_(0, img0_shape[0])  # y4
+    coords[:, 8].clamp_(0, img0_shape[1])  # x5
+    coords[:, 9].clamp_(0, img0_shape[0])  # y5
+    return coords
 
 
 # ============================================================================
