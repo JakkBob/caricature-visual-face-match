@@ -17,6 +17,60 @@ const PYTHON_SERVICE_URL = process.env.PYTHON_SERVICE_URL || 'http://localhost:8
 const SUPPORTED_FORMATS = ['jpg', 'jpeg', 'png', 'bmp', 'webp'];
 
 /**
+ * Check if a string is valid Base64
+ */
+function isBase64(str: string): boolean {
+  // Check if it's a data URL
+  if (str.startsWith('data:')) {
+    return true;
+  }
+  
+  // Check if it's a valid Base64 string (only contains Base64 characters)
+  // Base64 charset: A-Z, a-z, 0-9, +, /, = (padding)
+  const base64Regex = /^[A-Za-z0-9+/]+=*$/;
+  
+  // Also check if the string is long enough to be image data
+  // and doesn't look like a file path
+  if (str.length > 100 && base64Regex.test(str.replace(/\s/g, ''))) {
+    return true;
+  }
+  
+  return false;
+}
+
+/**
+ * Check if a string is a valid file path
+ */
+function isFilePath(str: string): boolean {
+  // Must start with / or a drive letter (Windows) or ./
+  // and must not contain Base64-only characters in sequence
+  if (str.startsWith('data:')) {
+    return false;
+  }
+  
+  // Check for Windows path (e.g., C:\, D:\)
+  if (/^[A-Za-z]:[/\\]/.test(str)) {
+    return true;
+  }
+  
+  // Check for Unix absolute path
+  if (str.startsWith('/')) {
+    // But not if it looks like Base64 (long string with only Base64 chars)
+    if (str.length > 200 && /^[A-Za-z0-9+/]+=*$/.test(str.substring(1))) {
+      return false;
+    }
+    return true;
+  }
+  
+  // Check for relative path
+  if (str.startsWith('./') || str.startsWith('../')) {
+    return true;
+  }
+  
+  return false;
+}
+
+/**
  * Load images from directory as base64
  */
 async function loadImagesFromDirectory(dirPath: string): Promise<{ images: string[]; ids: string[] }> {
@@ -107,13 +161,21 @@ export async function POST(request: NextRequest) {
 
     // Prepare query image
     let queryImageData: string;
+    
     if (queryImage.startsWith('data:')) {
       // Base64 format with data URL prefix
       queryImageData = queryImage.split(',')[1] || queryImage;
-    } else if (queryImage.startsWith('/')) {
-      // File path
-      const fileBuffer = await readFile(queryImage);
-      queryImageData = fileBuffer.toString('base64');
+    } else if (isFilePath(queryImage)) {
+      // File path - read file
+      try {
+        const fileBuffer = await readFile(queryImage);
+        queryImageData = fileBuffer.toString('base64');
+      } catch (fileError) {
+        return NextResponse.json(
+          { success: false, message: `Failed to read image file: ${queryImage}` },
+          { status: 400 }
+        );
+      }
     } else {
       // Assume already Base64
       queryImageData = queryImage;
