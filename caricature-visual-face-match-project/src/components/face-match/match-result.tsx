@@ -42,6 +42,23 @@ export function MatchResult({
     return 'bg-red-100';
   };
 
+  // Format processing time with appropriate unit
+  const formatProcessTime = (ms: number): string => {
+    if (ms < 1000) {
+      return `${ms}ms`;
+    } else if (ms < 60000) {
+      return `${(ms / 1000).toFixed(2)}s`;
+    } else if (ms < 3600000) {
+      const minutes = Math.floor(ms / 60000);
+      const seconds = ((ms % 60000) / 1000).toFixed(1);
+      return `${minutes}m ${seconds}s`;
+    } else {
+      const hours = Math.floor(ms / 3600000);
+      const minutes = Math.floor((ms % 3600000) / 60000);
+      return `${hours}h ${minutes}m`;
+    }
+  };
+
   return (
     <Card className={cn('w-full', className)}>
       <CardHeader className="pb-2">
@@ -49,7 +66,7 @@ export function MatchResult({
           <CardTitle className="text-lg">匹配结果</CardTitle>
           {processTime !== undefined && processTime !== null && (
             <Badge variant="outline" className="text-xs">
-              耗时: {processTime}ms
+              耗时: {formatProcessTime(processTime)}
             </Badge>
           )}
         </div>
