@@ -11,6 +11,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { CheckCircle2, XCircle, Trophy, ImageIcon, Maximize2 } from 'lucide-react';
@@ -184,10 +185,10 @@ export function MatchResult({
               )}
             </div>
           </DialogTitle>
+          <DialogDescription>
+            查询模式: {queryModality === 'face' ? '真实人脸 → 漫画' : '漫画 → 真实人脸'}
+          </DialogDescription>
         </DialogHeader>
-        <p className="text-sm text-muted-foreground">
-          查询模式: {queryModality === 'face' ? '真实人脸 → 漫画' : '漫画 → 真实人脸'}
-        </p>
         <div className="flex-1 overflow-y-auto pr-2" style={{ maxHeight: 'calc(80vh - 120px)' }}>
           <div className="space-y-3">
             {matches.map((match, index) => (
