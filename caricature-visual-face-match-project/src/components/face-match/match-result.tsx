@@ -22,6 +22,7 @@ interface MatchResultProps {
   processTime?: number;
   className?: string;
   autoOpen?: boolean; // Auto open dialog after matching
+  onDialogClose?: () => void; // Callback when dialog closes
 }
 
 export function MatchResult({
@@ -30,15 +31,24 @@ export function MatchResult({
   processTime,
   className,
   autoOpen = false,
+  onDialogClose,
 }: MatchResultProps) {
   const [showAutoDialog, setShowAutoDialog] = useState(autoOpen);
 
-  // Close auto dialog when matches change
+  // Update showAutoDialog when autoOpen changes
   useEffect(() => {
-    if (autoOpen && matches.length > 0) {
+    if (autoOpen) {
       setShowAutoDialog(true);
     }
-  }, [matches, autoOpen]);
+  }, [autoOpen]);
+
+  // Handle dialog close
+  const handleDialogClose = (open: boolean) => {
+    setShowAutoDialog(open);
+    if (!open && onDialogClose) {
+      onDialogClose();
+    }
+  };
 
   if (matches.length === 0) {
     return (
@@ -210,7 +220,7 @@ export function MatchResult({
                 variant="ghost"
                 size="icon"
                 className="h-7 w-7"
-                onClick={() => setShowAutoDialog(true)}
+                onClick={() => handleDialogClose(true)}
                 title="展开查看全部"
               >
                 <Maximize2 className="h-4 w-4" />
@@ -234,7 +244,7 @@ export function MatchResult({
                   variant="outline"
                   className="w-full"
                   size="sm"
-                  onClick={() => setShowAutoDialog(true)}
+                  onClick={() => handleDialogClose(true)}
                 >
                   <Maximize2 className="h-4 w-4 mr-2" />
                   查看全部 {matches.length} 条结果
@@ -246,7 +256,7 @@ export function MatchResult({
       </Card>
 
       {/* 弹窗 */}
-      <MatchDialog isOpen={showAutoDialog} onOpenChange={setShowAutoDialog} />
+      <MatchDialog isOpen={showAutoDialog} onOpenChange={handleDialogClose} />
     </>
   );
 }

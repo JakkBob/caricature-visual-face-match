@@ -36,6 +36,7 @@ export default function Home() {
   const [matches, setMatches] = useState<MatchedPair[]>([]);
   const [isMatching, setIsMatching] = useState(false);
   const [processTime, setProcessTime] = useState<number | undefined>(undefined);
+  const [shouldAutoOpenDialog, setShouldAutoOpenDialog] = useState(false); // 控制弹窗自动打开
 
   // 评估状态
   const [metrics, setMetrics] = useState<EvaluationMetrics | undefined>();
@@ -49,6 +50,7 @@ export default function Home() {
     setQueryImage(preview);
     setMatches([]);
     setProcessTime(undefined);
+    setShouldAutoOpenDialog(false);
   }, []);
 
   const handleImageClear = useCallback(() => {
@@ -56,6 +58,7 @@ export default function Home() {
     setQueryImage(null);
     setMatches([]);
     setProcessTime(undefined);
+    setShouldAutoOpenDialog(false);
   }, []);
 
   const handleMatch = async () => {
@@ -110,6 +113,11 @@ export default function Home() {
         const processTimeMs = data.data.process_time || data.data.processTime || data.process_time || data.processTime || 0;
         console.log('[Match] Process time:', processTimeMs);
         setProcessTime(processTimeMs);
+        
+        // 匹配成功后设置自动弹窗
+        if (transformedMatches.length > 0) {
+          setShouldAutoOpenDialog(true);
+        }
       } else {
         console.error('Match failed:', data.message);
       }
@@ -276,7 +284,8 @@ export default function Home() {
                     matches={matches}
                     queryModality={matchMode === 'face-to-caricature' ? 'face' : 'caricature'}
                     processTime={processTime}
-                    autoOpen={true}
+                    autoOpen={shouldAutoOpenDialog}
+                    onDialogClose={() => setShouldAutoOpenDialog(false)}
                   />
                 )}
               </div>
