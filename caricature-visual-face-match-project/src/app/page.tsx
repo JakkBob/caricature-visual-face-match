@@ -79,8 +79,18 @@ export default function Home() {
 
       const data = await response.json();
       if (data.success && data.data) {
-        setMatches(data.data.matches);
-        setProcessTime(data.data.processTime);
+        // Transform backend response to MatchedPair format
+        const transformedMatches: MatchedPair[] = (data.data.matches || []).map(
+          (match: { index?: number; similarity: number; rank: number; isMatch?: boolean; is_match?: boolean; id?: string }) => ({
+            imageId: match.id || `match-${match.index || match.rank}`,
+            imagePath: '', // Backend doesn't return path, will show placeholder
+            similarity: match.similarity,
+            rank: match.rank,
+            isMatch: match.isMatch ?? match.is_match ?? false,
+          })
+        );
+        setMatches(transformedMatches);
+        setProcessTime(data.data.processTime || 0);
       } else {
         console.error('Match failed:', data.message);
       }

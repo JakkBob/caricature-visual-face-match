@@ -61,7 +61,7 @@ export function MatchResult({
         <div className="space-y-3">
           {matches.map((match, index) => (
             <div
-              key={match.imageId}
+              key={match.imageId || `match-${index}`}
               className={cn(
                 'flex items-center gap-3 p-3 rounded-lg border transition-colors',
                 index === 0 && 'ring-2 ring-primary/50 bg-primary/5',
