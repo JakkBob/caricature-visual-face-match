@@ -343,7 +343,7 @@ class FaceMatchService:
                     'index': int(idx),
                     'similarity': float(similarities[idx]),
                     'rank': rank + 1,
-                    'is_match': similarities[idx] >= self.config.MATCH_THRESHOLD
+                    'is_match': bool(similarities[idx] >= self.config.MATCH_THRESHOLD)
                 }
                 if gallery_ids:
                     match['id'] = gallery_ids[idx]
