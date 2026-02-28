@@ -75,8 +75,12 @@ class CrossModalFaceMatcher(nn.Module):
             )
             clip_feat_dim = self.clip_model.visual.output_dim  # 512 for ViT-B/32
             
-            # Convert CLIP weights to FP16
-            clip.model.convert_weights(self.clip_model)
+            # Convert CLIP weights to FP16 only on CUDA
+            if self.device.type == 'cuda':
+                clip.model.convert_weights(self.clip_model)
+            else:
+                # On CPU, keep FP32
+                self.clip_model = self.clip_model.float()
         else:
             self.clip_model = None
             self.clip_preprocess = None
@@ -148,7 +152,11 @@ class CrossModalFaceMatcher(nn.Module):
         
         # CLIP visual features
         if self.clip_model is not None:
-            f_clip = self.clip_model.visual(img_clip.half()).float()
+            # Use half precision only on CUDA
+            if self.device.type == 'cuda':
+                f_clip = self.clip_model.visual(img_clip.half()).float()
+            else:
+                f_clip = self.clip_model.visual(img_clip.float()).float()
         else:
             f_clip = torch.zeros(img_clip.size(0), 512, device=self.device)
         
@@ -203,7 +211,11 @@ class CrossModalFaceMatcher(nn.Module):
             
             # CLIP visual features
             if self.clip_model is not None:
-                f_clip = self.clip_model.visual(img_clip.half()).float()
+                # Use half precision only on CUDA
+                if self.device.type == 'cuda':
+                    f_clip = self.clip_model.visual(img_clip.half()).float()
+                else:
+                    f_clip = self.clip_model.visual(img_clip.float()).float()
             else:
                 f_clip = torch.zeros(img_clip.size(0), 512, device=self.device)
             

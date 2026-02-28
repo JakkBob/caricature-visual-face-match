@@ -43,10 +43,10 @@ from cross_modal.matcher import CrossModalFaceMatcher, ImagePreprocessor, create
 class Config:
     """Service configuration."""
     
-    # Model paths
+    # Model paths - use yolov5-face/weights directory for face detector
     FACE_DETECTOR_MODEL = os.environ.get(
         'FACE_DETECTOR_MODEL',
-        './models/yolov5l6_best.pt'
+        './yolov5-face/weights/yolov5l6_best.pt'
     )
     CROSS_MODAL_MODEL = os.environ.get(
         'CROSS_MODAL_MODEL',
