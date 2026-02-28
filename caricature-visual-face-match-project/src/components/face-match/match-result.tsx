@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { MatchedPair } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -12,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { CheckCircle2, XCircle, Trophy, ImageIcon, Expand, Minimize2 } from 'lucide-react';
+import { CheckCircle2, XCircle, Trophy, ImageIcon, Maximize2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface MatchResultProps {
@@ -30,6 +31,15 @@ export function MatchResult({
   className,
   autoOpen = false,
 }: MatchResultProps) {
+  const [showAutoDialog, setShowAutoDialog] = useState(autoOpen);
+
+  // Close auto dialog when matches change
+  useEffect(() => {
+    if (autoOpen && matches.length > 0) {
+      setShowAutoDialog(true);
+    }
+  }, [matches, autoOpen]);
+
   if (matches.length === 0) {
     return (
       <Card className={cn('w-full', className)}>
@@ -66,7 +76,6 @@ export function MatchResult({
   // Render a single match item
   const MatchItem = ({ match, index }: { match: MatchedPair; index: number }) => (
     <div
-      key={match.imageId || `match-${index}`}
       className={cn(
         'flex items-center gap-4 p-3 rounded-lg border transition-colors',
         index === 0 && 'ring-2 ring-primary/50 bg-primary/5',
@@ -151,6 +160,35 @@ export function MatchResult({
     </div>
   );
 
+  // Dialog content for both expand and auto-open
+  const MatchDialog = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenChange: (open: boolean) => void }) => (
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
+        <DialogHeader>
+          <DialogTitle className="flex items-center justify-between">
+            <span>匹配结果</span>
+            <div className="flex items-center gap-2 text-sm font-normal">
+              <Badge variant="outline">共 {matches.length} 条</Badge>
+              {processTime !== undefined && processTime !== null && (
+                <Badge variant="outline">耗时: {formatProcessTime(processTime)}</Badge>
+              )}
+            </div>
+          </DialogTitle>
+        </DialogHeader>
+        <p className="text-sm text-muted-foreground">
+          查询模式: {queryModality === 'face' ? '真实人脸 → 漫画' : '漫画 → 真实人脸'}
+        </p>
+        <div className="flex-1 overflow-y-auto pr-2" style={{ maxHeight: 'calc(80vh - 120px)' }}>
+          <div className="space-y-3">
+            {matches.map((match, index) => (
+              <MatchItem key={match.imageId || `match-${index}`} match={match} index={index} />
+            ))}
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+
   return (
     <>
       {/* 主卡片 - 固定高度，内部滚动 */}
@@ -167,6 +205,16 @@ export function MatchResult({
                   耗时: {formatProcessTime(processTime)}
                 </Badge>
               )}
+              {/* 展开按钮 - 始终显示 */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7"
+                onClick={() => setShowAutoDialog(true)}
+                title="展开查看全部"
+              >
+                <Maximize2 className="h-4 w-4" />
+              </Button>
             </div>
           </div>
           <p className="text-sm text-muted-foreground">
@@ -180,70 +228,25 @@ export function MatchResult({
                 <MatchItem key={match.imageId || `match-${index}`} match={match} index={index} />
               ))}
               
-              {/* 展开按钮 */}
+              {/* 超过5条时显示提示 */}
               {matches.length > 5 && (
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="outline" className="w-full" size="sm">
-                      <Expand className="h-4 w-4 mr-2" />
-                      查看全部 {matches.length} 条结果
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
-                    <DialogHeader>
-                      <DialogTitle className="flex items-center justify-between">
-                        <span>匹配结果</span>
-                        <div className="flex items-center gap-2 text-sm font-normal">
-                          <Badge variant="outline">共 {matches.length} 条</Badge>
-                          {processTime !== undefined && processTime !== null && (
-                            <Badge variant="outline">耗时: {formatProcessTime(processTime)}</Badge>
-                          )}
-                        </div>
-                      </DialogTitle>
-                    </DialogHeader>
-                    <div className="flex-1 overflow-y-auto pr-2" style={{ maxHeight: 'calc(80vh - 100px)' }}>
-                      <div className="space-y-3">
-                        {matches.map((match, index) => (
-                          <MatchItem key={match.imageId || `match-${index}`} match={match} index={index} />
-                        ))}
-                      </div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  size="sm"
+                  onClick={() => setShowAutoDialog(true)}
+                >
+                  <Maximize2 className="h-4 w-4 mr-2" />
+                  查看全部 {matches.length} 条结果
+                </Button>
               )}
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* 匹配完成后的自动弹窗 */}
-      {autoOpen && matches.length > 0 && (
-        <Dialog defaultOpen>
-          <DialogContent className="max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
-            <DialogHeader>
-              <DialogTitle className="flex items-center justify-between">
-                <span>匹配完成</span>
-                <div className="flex items-center gap-2 text-sm font-normal">
-                  <Badge variant="outline">共 {matches.length} 条</Badge>
-                  {processTime !== undefined && processTime !== null && (
-                    <Badge variant="outline">耗时: {formatProcessTime(processTime)}</Badge>
-                  )}
-                </div>
-              </DialogTitle>
-            </DialogHeader>
-            <div className="flex-1 overflow-y-auto pr-2" style={{ maxHeight: 'calc(80vh - 100px)' }}>
-              <p className="text-sm text-muted-foreground mb-4">
-                查询模式: {queryModality === 'face' ? '真实人脸 → 漫画' : '漫画 → 真实人脸'}
-              </p>
-              <div className="space-y-3">
-                {matches.map((match, index) => (
-                  <MatchItem key={match.imageId || `match-${index}`} match={match} index={index} />
-                ))}
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-      )}
+      {/* 弹窗 */}
+      <MatchDialog isOpen={showAutoDialog} onOpenChange={setShowAutoDialog} />
     </>
   );
 }
