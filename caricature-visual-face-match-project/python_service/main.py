@@ -12,6 +12,7 @@ import time
 import logging
 from typing import Optional, List, Dict, Any, Union
 from pathlib import Path
+from contextlib import asynccontextmanager
 
 import numpy as np
 import cv2
@@ -52,8 +53,12 @@ class Config:
         './models/cross_modal_matcher.pt'
     )
     
-    # Device
-    DEVICE = os.environ.get('DEVICE', 'cuda' if torch.cuda.is_available() else 'cpu')
+    # Device - properly detect CUDA availability
+    _env_device = os.environ.get('DEVICE', '')
+    if _env_device:
+        DEVICE = _env_device
+    else:
+        DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
     
     # Face detection settings
     FACE_ALIGN_SIZE = 224
@@ -146,7 +151,13 @@ class FaceMatchService:
     def __init__(self, config: Config = Config()):
         """Initialize service."""
         self.config = config
-        self.device = config.DEVICE
+        
+        # Properly detect device - check CUDA availability again
+        if config.DEVICE == 'cuda' and not torch.cuda.is_available():
+            logger.warning("CUDA requested but not available, falling back to CPU")
+            self.device = 'cpu'
+        else:
+            self.device = config.DEVICE
         
         # Models
         self.face_detector: Optional[FaceDetector] = None
@@ -161,7 +172,8 @@ class FaceMatchService:
     
     def initialize(self):
         """Initialize models."""
-        logger.info("Initializing Face Match Service...")
+        logger.info(f"Initializing Face Match Service on device: {self.device}")
+        logger.info(f"CUDA available: {torch.cuda.is_available()}")
         
         # Initialize face detector
         try:
@@ -385,17 +397,29 @@ class FaceMatchService:
 
 
 # ============================================================================
-# FastAPI Application
+# FastAPI Application with Lifespan
 # ============================================================================
 
 # Create service instance
 service = FaceMatchService()
 
-# Create FastAPI app
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Lifespan context manager for startup and shutdown events."""
+    # Startup
+    service.initialize()
+    yield
+    # Shutdown (cleanup if needed)
+    pass
+
+
+# Create FastAPI app with lifespan
 app = FastAPI(
     title="Face Match Service",
     description="Cross-modal face detection and matching service",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 # Add CORS middleware
@@ -406,12 +430,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.on_event("startup")
-async def startup_event():
-    """Initialize service on startup."""
-    service.initialize()
 
 
 @app.get("/", response_model=StatusResponse)

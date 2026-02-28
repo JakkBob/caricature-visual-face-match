@@ -5,7 +5,17 @@
 # Set environment variables
 export FACE_DETECTOR_MODEL=${FACE_DETECTOR_MODEL:-"./models/yolov5l6_best.pt"}
 export CROSS_MODAL_MODEL=${CROSS_MODAL_MODEL:-"./models/cross_modal_matcher.pt"}
-export DEVICE=${DEVICE:-"cuda"}
+
+# Auto-detect device if not set
+if [ -z "$DEVICE" ]; then
+    # Check if CUDA is available
+    if python -c "import torch; exit(0 if torch.cuda.is_available() else 1)" 2>/dev/null; then
+        export DEVICE="cuda"
+    else
+        export DEVICE="cpu"
+    fi
+fi
+
 export PORT=${PORT:-8000}
 
 # Check if models exist
