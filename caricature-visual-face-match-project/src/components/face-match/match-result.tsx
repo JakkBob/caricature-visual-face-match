@@ -47,7 +47,7 @@ export function MatchResult({
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg">匹配结果</CardTitle>
-          {processTime && (
+          {processTime !== undefined && processTime !== null && (
             <Badge variant="outline" className="text-xs">
               耗时: {processTime}ms
             </Badge>

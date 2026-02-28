@@ -35,7 +35,7 @@ export default function Home() {
   const [queryFile, setQueryFile] = useState<File | null>(null);
   const [matches, setMatches] = useState<MatchedPair[]>([]);
   const [isMatching, setIsMatching] = useState(false);
-  const [processTime, setProcessTime] = useState<number>(0);
+  const [processTime, setProcessTime] = useState<number | undefined>(undefined);
 
   // 评估状态
   const [metrics, setMetrics] = useState<EvaluationMetrics | undefined>();
@@ -48,12 +48,14 @@ export default function Home() {
     setQueryFile(file);
     setQueryImage(preview);
     setMatches([]);
+    setProcessTime(undefined);
   }, []);
 
   const handleImageClear = useCallback(() => {
     setQueryFile(null);
     setQueryImage(null);
     setMatches([]);
+    setProcessTime(undefined);
   }, []);
 
   const handleMatch = async () => {
