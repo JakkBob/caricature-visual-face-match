@@ -477,7 +477,7 @@ async def match_images(request: MatchRequest):
     """Match query image against gallery."""
     try:
         import time
-        start_time = time.time()
+        start_time = time.perf_counter()  # Use higher precision timer
         
         query_image = service.decode_image(request.query_image)
         gallery_images = [service.decode_image(img) for img in request.gallery_images]
@@ -489,9 +489,14 @@ async def match_images(request: MatchRequest):
             request.top_k or 10
         )
         
-        # Add processing time
-        process_time = int((time.time() - start_time) * 1000)  # ms
+        # Add processing time (use perf_counter for higher precision)
+        process_time = int((time.perf_counter() - start_time) * 1000)  # ms
+        # Ensure at least 1ms is shown if there's any processing
+        if process_time == 0:
+            process_time = 1
         result['process_time'] = process_time
+        
+        logger.info(f"[Match] Processing time: {process_time}ms")
         
         return MatchResponse(**result)
     except Exception as e:
