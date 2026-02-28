@@ -202,9 +202,9 @@ export default function Home() {
 
           {/* 匹配识别标签页 */}
           <TabsContent value="match" className="space-y-6">
-            <div className="grid lg:grid-cols-2 gap-6">
+            <div className="grid lg:grid-cols-5 gap-6">
               {/* 左侧：匹配模式 */}
-              <div className="space-y-4">
+              <div className="lg:col-span-2 space-y-4">
                 {/* 匹配模式选择 */}
                 <Card>
                   <CardHeader className="pb-3">
@@ -267,24 +267,31 @@ export default function Home() {
                 </Button>
               </div>
 
-              {/* 右侧：系统状态和匹配结果 */}
-              <div className="space-y-4">
-                <SystemStatus />
+              {/* 右侧：系统状态（上）和匹配结果（下） */}
+              <div className="lg:col-span-3 space-y-4 flex flex-col">
+                {/* 系统状态 */}
+                <div className="flex-shrink-0">
+                  <SystemStatus />
+                </div>
                 
-                {matches.length > 0 ? (
-                  <MatchResult
-                    matches={matches}
-                    queryModality={matchMode === 'face-to-caricature' ? 'face' : 'caricature'}
-                    processTime={processTime}
-                    autoOpen={true}
-                  />
-                ) : (
-                  <Card className="w-full">
-                    <CardContent className="flex flex-col items-center justify-center py-12">
-                      <p className="text-muted-foreground">上传图像后点击"开始匹配"查看结果</p>
-                    </CardContent>
-                  </Card>
-                )}
+                {/* 匹配结果 */}
+                <div className="flex-1 min-h-0">
+                  {matches.length > 0 ? (
+                    <MatchResult
+                      matches={matches}
+                      queryModality={matchMode === 'face-to-caricature' ? 'face' : 'caricature'}
+                      processTime={processTime}
+                      autoOpen={true}
+                      className="h-full"
+                    />
+                  ) : (
+                    <Card className="w-full h-full min-h-[300px]">
+                      <CardContent className="flex flex-col items-center justify-center h-full">
+                        <p className="text-muted-foreground">上传图像后点击"开始匹配"查看结果</p>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
               </div>
             </div>
           </TabsContent>
