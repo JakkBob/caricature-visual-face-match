@@ -1,0 +1,86 @@
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Abraham Lincoln\C00018.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Alan Rickman\C00016.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Albert Einstein\C00004.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Alfred Hitchcock\C00002.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Alfred Hitchcock\C00027.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Alfred Hitchcock\C00038.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Alfred Hitchcock\C00059.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Alfred Hitchcock\C00088.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Arnold Schwarzenegger\C00010.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Benedict Cumberbatch\C00014.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Bill Murray\C00018.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Bruce Lee\C00034.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Chuck Norris\C00024.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Danny Glover\C00009.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Donald Trump\C00030.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Fidel Castro\C00003.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Frank Zappa\C00015.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Frank Zappa\C00017.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Frank Zappa\C00024.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Frank Zappa\C00037.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Frank Zappa\C00045.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\George W. Bush\C00008.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\George W. Bush\C00023.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Harrison Ford\C00006.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Hugh Laurie\C00011.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Hugh Laurie\C00032.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Hulk Hogan\C00001.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Hulk Hogan\C00009.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Jack Black\C00007.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\James Coburn\C00008.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\James Cromwell\C00018.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\James Cromwell\C00021.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Jamie lee curtis\C00010.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Jay-z\C00015.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Jeff Bridges\C00023.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\John Travolta\C00011.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\John Travolta\C00039.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\John Wayne\C00035.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Keith Richards\C00067.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Keith Richards\C00071.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Lee Marvin\C00016.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Leonard Nimoy\C00028.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Louie Armstrong\C00046.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Mahatma Gandhi\C00017.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Michael Schumacher\C00019.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Ming Yao\C00010.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Oliver Hardy\C00004.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Oliver Hardy\C00005.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Oliver Hardy\C00008.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Oliver Hardy\C00009.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Oliver Hardy\P00010.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\P!nk\C00004.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Patrick Stewart\C00017.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Peter Falk\C00007.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Rihanna\C00005.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Ringo Starr\C00009.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Ringo Starr\C00011.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Robert de Niro\C00007.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Sean Connery\C00019.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Sean Connery\C00040.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Stan Laurel\C00014.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Stan Laurel\C00007.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Stan Laurel\C00013.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Stan Laurel\C00015.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Stan Laurel\C00016.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Stan Laurel\C00017.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Stan Laurel\P00005.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Stan Laurel\P00006.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Stan Laurel\P00016.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Steve Jobs\C00020.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Steven Tyler\C00011.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Steven Tyler\C00014.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Steven Tyler\C00030.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Tim Burton\C00028.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Tim Burton\C00072.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Tina Turner\C00009.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Tina Turner\C00021.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Tina Turner\C00022.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Tina Turner\C00024.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Tom Cruise\C00002.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Walter Mathau\C00002.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Walter Mathau\C00003.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Walter Mathau\C00005.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Walter Mathau\C00007.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Willie Nelson\C00002.jpg
+D:\DSW_code\face_detect\face_detect\AnyFace\yolov5-face\runs\detect\exp6\WebCaricature\Woody Allen\C00008.jpg
